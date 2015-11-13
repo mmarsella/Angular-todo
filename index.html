@@ -1,29 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="todoApp">
 	<head>
 		<meta charset="UTF-8">
 		<title>Angular To Do App</title>
 		<!-- Latest compiled and minified CSS for bootstrap -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
+		  <script src="./app.js"></script>
 	</head>
-	<body>
-		<div class="container">
+	<body ng-cloak>
+
+	<style>
+	li{
+		list-style-type: none;
+		font-size: 20px;
+	}
+
+	#addButton{
+		margin-left: 35px;
+
+	}
+	</style>
+
+	<div ng-controller="TodosController">
+		<div class="container text-center">
+		<br>
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
+				<div class="col-md-8 col-md-offset-2 text-center">
 					<!-- Create your form below, try adding some angular validations -->
-					<form>
+					
+					<button ng-show="!button" class="btn-lg btn-success text-center" ng-click="addButton()" id="addButton">Add Item</button>
+
+					<form novalidate ng-submit="addTodo(mv)" ng-show="button">
+					<label for="todo">Add Todo</label>
+					<input type="text" name="todo" id="todo" ng-model="mv.todo" ng-required="true" ng-minlength="2">
 					</form>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
+				<div class="col-md-8 col-md-offset-2 text-center">
 					<!-- List your todos here, use some css to hide the bullet points -->
 					<ul> 
+						<li ng-repeat="todo in todos">{{todo.todo}}</li>
+						<br>
+					<button class="btn btn-danger text-center" ng-click="deleteAll()">Clear</button>
 					</ul>
 				</div>
 			</div>
 		</div>
-
+	</div>
 		<!-- JavaScripts -->
 		<!-- jQuery -->
 		<script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
